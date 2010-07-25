@@ -31,6 +31,13 @@ class Args:
     def get_files(self):
         return self.files
 
+
+missing_args = """
+Missing arguments :
+subtile videos [-login <login>] [-password <password>] [-lang <lang>]
+
+"""
+
 if __name__ == "__main__":
 
     example1 = Args(["-login", "LOGIN", "OTHER"])

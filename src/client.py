@@ -27,11 +27,12 @@ class Client:
     def search_sub(self, videos):
         ask_for = []
 
-        for video in videos:
-            m = {"sublanguageid" : self.lang, "moviehash" : video.get_hash(), "moviebytesize" : video.get_size()}
+        for hash, video in videos:
+            m = {"sublanguageid" : self.lang, "moviehash" : hash, "moviebytesize" : video.get_size()}
             ask_for.append(m)
 
         info = self.proxy.SearchSubtitles(self.token, ask_for)
+        
         print(info)
 
 
