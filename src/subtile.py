@@ -4,6 +4,7 @@ import sys
 from client import Client
 from arg import Args
 from video import Video
+from filter import IsAMovieFile, HasAsrtFile
 
 class Launcher:
 
@@ -12,6 +13,7 @@ class Launcher:
         for filename in filenames:
             v = Video(filename)
             self.map[v.get_hash()] = v
+        print(self.map)
 
     def run(self, args):
         print ("trying to connect...")
@@ -22,13 +24,16 @@ class Launcher:
             client.search_sub(self.map)
             client.logout()
             print ("logout")
+        else:
+            print ("unable to connect with this login "+ args.get_prefs("login"))
 
 if len(sys.argv) == 1:
     print ("subtile videos [-login <login>] [-password <password>] [-lang <lang>]")
     exit()
 
 args = Args(sys.argv[1:])
-launcher = Launcher(args.get_files())
+filter = HasAsrtFile(IsAMovieFile(args.get_files()))
+launcher = Launcher(filter)
 launcher.run(args)
 
 

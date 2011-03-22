@@ -16,6 +16,7 @@ class Client:
         if (info["status"] == SUCCESS):
             self.token = info["token"]
             return True
+        print (info["status"])
         return False
 
     def logout(self):
@@ -27,15 +28,11 @@ class Client:
     def search_sub(self, videos):
         ask_for = []
 
-        for hash, video in videos:
+        for hash, video in videos.items():
             m = {"sublanguageid" : self.lang, "moviehash" : hash, "moviebytesize" : video.get_size()}
             ask_for.append(m)
 
         info = self.proxy.SearchSubtitles(self.token, ask_for)
-        
         print(info)
-
-
         
-
 
