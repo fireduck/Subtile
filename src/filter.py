@@ -43,10 +43,3 @@ class HasAsrtFile(Filter):
                     return True
                 return False
         return True
-            
-                
-
-
-
-    
-
