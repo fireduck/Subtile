@@ -16,6 +16,7 @@ class Video:
 
         if self.size < _64K * 2:
             return "SizeError"
+        self.sub_id = None
         self.hash = None
         self._calculate_hash()
 
@@ -42,6 +43,14 @@ class Video:
     
     def get_size(self):
         return self.size
+
+    def get_sub_id(self):
+        return self.sub_id
+
+    def get_sub_filename(self):
+        basename, extension = os.path.splitext(self.name)
+        return basename + ".srt"
+
 
 if __name__ == "__main__":
 

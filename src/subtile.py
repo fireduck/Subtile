@@ -13,19 +13,25 @@ class Launcher:
         for filename in filenames:
             v = Video(filename)
             self.map[v.get_hash()] = v
-        print(self.map)
 
     def run(self, args):
-        print ("trying to connect...")
+
+        if len(self.map) == 0:
+            print ("Nothing to do !")
+            return
+
+        print ("Trying to connect...")
         client = Client(args.get_prefs("lang"))
 
         if client.login(args.get_prefs("login"), args.get_prefs("password")):
-            print ("connected")
-            client.search_sub(self.map)
+            print ("Connected")
+            to_download = client.search_sub(self.map)
+            #print ("Find "+ len(to_download.values()) + " to download")
+            client.download_sub(to_download)
             client.logout()
-            print ("logout")
+            print ("Logout")
         else:
-            print ("unable to connect with this login "+ args.get_prefs("login"))
+            print ("Unable to connect with this login "+ args.get_prefs("login"))
 
 if len(sys.argv) == 1:
     print ("subtile videos [-login <login>] [-password <password>] [-lang <lang>]")
