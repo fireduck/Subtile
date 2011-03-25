@@ -2,7 +2,7 @@
 
 import sys
 from client import Client
-from arg import Args
+from arg import Args, missing_args
 from video import Video
 from filter import IsAMovieFile, HasAsrtFile
 
@@ -34,7 +34,7 @@ class Launcher:
             print ("Unable to connect with this login "+ args.get_prefs("login"))
 
 if len(sys.argv) == 1:
-    print ("subtile videos [-login <login>] [-password <password>] [-lang <lang>]")
+    print (missing_args)
     exit()
 
 args = Args(sys.argv[1:])

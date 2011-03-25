@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 USER_AGENT = "Subtile v0.01"
 SERVICE_ADDRESS = "http://api.opensubtitles.org/xml-rpc"
 
@@ -32,10 +30,8 @@ class Args:
         return self.files
 
 
-missing_args = """
-Missing arguments :
-subtile videos [-login <login>] [-password <password>] [-lang <lang>]
-
+missing_args = """subtile videos_files [-login <login>] [-password <password>] [-lang <lang>]
+Powered by www.OpenSubtitles.org
 """
 
 if __name__ == "__main__":
@@ -46,6 +42,3 @@ if __name__ == "__main__":
     else:
         print ("FAIL")
     print example1.get_files()
-
-
-
