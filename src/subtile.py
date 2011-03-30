@@ -39,10 +39,9 @@ if len(sys.argv) == 1:
 
 args = Args(sys.argv[1:])
 filter = HasAsrtFile(IsAMovieFile(args.get_files()))
-launcher = Launcher(filter)
-launcher.run(args)
 
-
-
-
-
+try:
+    launcher = Launcher(filter)
+    launcher.run(args)
+except Exception as e:
+    print ("An error has occurred: {0}".format(e))
