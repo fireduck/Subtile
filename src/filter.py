@@ -37,7 +37,7 @@ class HasAsrtFile(Filter):
     def filtered(self, i):
         for m in MOVIE:
             if i.endswith(m):
-                basename, extension = os.path.splitext(m)
+                basename, extension = os.path.splitext(i)
                 srt = basename + ".srt"
                 if (os.path.isfile(srt)):
                     print ("\""+i + "\" has already a srt file")

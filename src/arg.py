@@ -1,4 +1,4 @@
-USER_AGENT = "Subtile v0.01"
+USER_AGENT = "Subtitle v0.01"
 SERVICE_ADDRESS = "http://api.opensubtitles.org/xml-rpc"
 
 OPTIONS = {"-login" : "login", "-password" : "password", "-l" : "lang", "-lang" : "lang"}
