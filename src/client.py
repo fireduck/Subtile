@@ -1,14 +1,35 @@
 from xmlrpclib import ServerProxy
+import xmlrpclib, httplib
 import base64, os
 import StringIO, gzip, zlib
 from arg import USER_AGENT, SERVICE_ADDRESS
 
 SUCCESS = "200 OK"
 
+class ProxiedTransport(xmlrpclib.Transport):
+
+    def set_proxy(self, proxy):
+        self.proxy = proxy
+
+    def make_connection(self, host):
+        self.realhost = host
+        h = httplib.HTTP(self.proxy)
+        return h
+
+    def send_request(self, connection, handler, request_body):
+        connection.putrequest("POST", 'http://%s%s' % (self.realhost, handler))
+
+    def send_host(self, connection, host):
+        connection.putheader('Host', self.realhost)
+
 class Client:
 
-    def __init__(self, lang):
-        self.proxy = ServerProxy(SERVICE_ADDRESS, allow_none=True)
+    def __init__(self, lang, http_proxy=None):
+        p=None
+        if (http_proxy):
+            p = ProxiedTransport()
+            p.set_proxy(http_proxy)
+        self.proxy = ServerProxy(SERVICE_ADDRESS, transport=p, allow_none=True)
         self.lang = lang
 
     def login(self, login, password):
