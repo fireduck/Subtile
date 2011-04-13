@@ -21,7 +21,7 @@ class Launcher:
             return
 
         print ("Trying to connect...")
-        client = Client(args.get_prefs("lang"))
+        client = Client(args.get_prefs("lang"), args.get_prefs("proxy"))
 
         if client.login(args.get_prefs("login"), args.get_prefs("password")):
             print ("Connected")

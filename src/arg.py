@@ -1,18 +1,16 @@
 USER_AGENT = "Subtile v0.01"
 SERVICE_ADDRESS = "http://api.opensubtitles.org/xml-rpc"
 
-OPTIONS = {"-login" : "login", "-password" : "password", "-l" : "lang", "-lang" : "lang"}
+OPTIONS = {"-login" : "login", "-password" : "password", "-l" : "lang", "-lang" : "lang", "-proxy" : "proxy" }
 
 class Args:
 
-    def __init__(self, args):
-        
+    def __init__(self, args):     
         self.prefs = {"login" : "", "password" : ""}
         self.files = set()
         self.parse_args(args)
         
     def parse_args(self, args):
-
         iterator = args.__iter__()
         for arg in iterator:
             self.parse_arg(arg, iterator)
@@ -24,13 +22,16 @@ class Args:
             self.files.add(arg)
 
     def get_prefs(self, name):
-        return self.prefs[name]
+        if name in self.prefs:
+            return self.prefs[name]
+        else:
+            return None
 
     def get_files(self):
         return self.files
 
 
-missing_args = """subtile videos_files [-login <login>] [-password <password>] [-lang <lang>]
+missing_args = """subtile videos_files [-login <login>] [-password <password>] [-lang <lang>] [-proxy <proxy>]
 Powered by www.OpenSubtitles.org
 """
 

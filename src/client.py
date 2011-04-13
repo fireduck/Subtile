@@ -8,7 +8,8 @@ SUCCESS = "200 OK"
 
 class ProxiedTransport(xmlrpclib.Transport):
 
-    def set_proxy(self, proxy):
+    def __init__(self, proxy):
+        xmlrpclib.Transport.__init__(self)
         self.proxy = proxy
 
     def make_connection(self, host):
@@ -25,10 +26,7 @@ class ProxiedTransport(xmlrpclib.Transport):
 class Client:
 
     def __init__(self, lang, http_proxy=None):
-        p=None
-        if (http_proxy):
-            p = ProxiedTransport()
-            p.set_proxy(http_proxy)
+        p = ProxiedTransport(http_proxy) if http_proxy else None
         self.proxy = ServerProxy(SERVICE_ADDRESS, transport=p, allow_none=True)
         self.lang = lang
 
