@@ -31,7 +31,7 @@ class Args:
         return self.files
 
 
-missing_args = """subtile videos_files [-login <login>] [-password <password>] [-lang <lang>] [-proxy <proxy>]
+missing_args = """subtile videos_files [-login <login>] [-password <password>] [-lang <lang>] [-proxy <address:port>]
 Powered by www.OpenSubtitles.org
 """
 

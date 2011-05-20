@@ -33,15 +33,17 @@ class Launcher:
         else:
             print ("Unable to connect with this login "+ args.get_prefs("login"))
 
-if len(sys.argv) == 1:
-    print (missing_args)
-    exit()
+if __name__ == "__main__":
 
-args = Args(sys.argv[1:])
-filter = HasAsrtFile(IsAMovieFile(args.get_files()))
+    if len(sys.argv) == 1:
+        print (missing_args)
+        exit()
 
-try:
-    launcher = Launcher(filter)
-    launcher.run(args)
-except Exception as e:
-    print ("An error has occurred: {0}".format(e))
+        args = Args(sys.argv[1:])
+        filter = HasAsrtFile(IsAMovieFile(args.get_files()))
+
+        try:
+            launcher = Launcher(filter)
+            launcher.run(args)
+        except Exception as e:
+            print ("An error has occurred: {0}".format(e))
