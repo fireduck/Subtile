@@ -54,13 +54,16 @@ class Client:
         info = self.proxy.SearchSubtitles(self.token, ask_for)
 
         if info.has_key("data"):
+            if info['data'] == False:
+                return {}
             for sub in info["data"]:
                 self._select_subs(videos, sub)
         
         to_download = {}
         for v in videos.values():
-            to_download[v.get_sub_id()] = v
-            print (v.name + " - " + v.get_sub_id())
+            if not(v.get_sub_id() == None):
+                to_download[v.get_sub_id()] = v
+                print (v.name + " - " + v.get_sub_id())
     
         return to_download
 

@@ -26,7 +26,7 @@ class Launcher:
         if client.login(args.get_prefs("login"), args.get_prefs("password")):
             print ("Connected")
             to_download = client.search_sub(self.map)
-            #print ("Find "+ len(to_download.values()) + " to download")
+
             client.download_sub(to_download)
             client.logout()
             print ("Logout")
@@ -39,11 +39,12 @@ if __name__ == "__main__":
         print (missing_args)
         exit()
 
-        args = Args(sys.argv[1:])
-        filter = HasAsrtFile(IsAMovieFile(args.get_files()))
+    args = Args(sys.argv[1:])
 
-        try:
-            launcher = Launcher(filter)
-            launcher.run(args)
-        except Exception as e:
-            print ("An error has occurred: {0}".format(e))
+    flter = HasAsrtFile(IsAMovieFile(args.get_files()))
+
+    try:
+        launcher = Launcher(flter)
+        launcher.run(args)
+    except Exception as e:
+        print ("An error has occurred: {0}".format(e))
