@@ -1,3 +1,4 @@
+import logging
 from xmlrpclib import ServerProxy
 import xmlrpclib, httplib
 import base64, os
@@ -35,7 +36,7 @@ class Client:
         if (info["status"] == SUCCESS):
             self.token = info["token"]
             return True
-        print (info["status"])
+        logging.info(info["status"])
         return False
 
     def logout(self):
@@ -57,17 +58,17 @@ class Client:
             if info['data'] == False:
                 return {}
             for sub in info["data"]:
-                self._select_subs(videos, sub)
+                self.select_subs(videos, sub)
         
         to_download = {}
         for v in videos.values():
             if not(v.get_sub_id() == None):
                 to_download[v.get_sub_id()] = v
-                print (v.name + " - " + v.get_sub_id())
+                logging.debug (v.name + " - " + v.get_sub_id())
     
         return to_download
 
-    def _select_subs(self, videos, sub):
+    def select_subs(self, videos, sub):
         video = videos[sub["MovieHash"]]
         if not video.get_sub_id():
             video.sub_id = sub["IDSubtitleFile"]

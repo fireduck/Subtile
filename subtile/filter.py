@@ -1,4 +1,5 @@
 import os.path
+import logging
 
 class Filter:
 
@@ -24,12 +25,12 @@ class IsAMovieFile(Filter):
 
     def filtered(self, i):
         if not os.path.isfile(i):
-            print  ("\""+i + "\" is not a file.")
+            logging.info  ("\""+i + "\" is not a file.")
             return True
         for m in MOVIE:
             if i.endswith(m):
                 return False
-        print ("\""+i + "\" is not a movie file.")
+        logging.info ("\""+i + "\" is not a movie file.")
         return True
 
 class HasAsrtFile(Filter):
@@ -40,7 +41,7 @@ class HasAsrtFile(Filter):
                 basename, extension = os.path.splitext(i)
                 srt = basename + ".srt"
                 if (os.path.isfile(srt)):
-                    print ("\""+i + "\" has already a srt file")
+                    logging.info ("\""+i + "\" has already a srt file")
                     return True
                 return False
         return True

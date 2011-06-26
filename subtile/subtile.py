@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import logging
 from client import Client
 from arg import Args, missing_args
 from video import Video
@@ -17,26 +18,28 @@ class Launcher:
     def run(self, args):
 
         if len(self.map) == 0:
-            print ("Nothing to do !")
+            logging.info("Nothing to do !")
             return
 
-        print ("Trying to connect...")
+        logging.info ("Trying to connect...")
         client = Client(args.get_prefs("lang"), args.get_prefs("proxy"))
 
         if client.login(args.get_prefs("login"), args.get_prefs("password")):
-            print ("Connected")
+            logging.info("Connected")
             to_download = client.search_sub(self.map)
 
             client.download_sub(to_download)
             client.logout()
-            print ("Logout")
+            logging.info("Logout")
         else:
-            print ("Unable to connect with this login "+ args.get_prefs("login"))
+            logging.error("Unable to connect with this login "+ args.get_prefs("login"))
 
 if __name__ == "__main__":
 
+    logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+
     if len(sys.argv) == 1:
-        print (missing_args)
+        print(missing_args)
         exit()
 
     args = Args(sys.argv[1:])
@@ -47,4 +50,4 @@ if __name__ == "__main__":
         launcher = Launcher(flter)
         launcher.run(args)
     except Exception as e:
-        print ("An error has occurred: {0}".format(e))
+        logging.error("An error has occurred: {0}".format(e))
