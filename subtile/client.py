@@ -53,7 +53,6 @@ class Client:
             ask_for.append(m)
 
         info = self.proxy.SearchSubtitles(self.token, ask_for)
-
         if info.has_key("data"):
             if info['data'] == False:
                 return {}
@@ -70,8 +69,9 @@ class Client:
 
     def select_subs(self, videos, sub):
         video = videos[sub["MovieHash"]]
-        if not video.get_sub_id():
-            video.sub_id = sub["IDSubtitleFile"]
+        if sub["SubFileName"].endswith(".srt"):
+            if not video.get_sub_id():
+                video.sub_id = sub["IDSubtitleFile"]
 
 
     def download_sub(self, to_download):
